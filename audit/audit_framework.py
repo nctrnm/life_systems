@@ -3,6 +3,7 @@
 # Date: June 18, 2026
 # Topic: Programmatic Post-Mortem & Audit Model
 # ==============================================================================
+"""System audit model for evaluating sprint execution and closing feedback loops."""
 
 from dataclasses import dataclass
 from typing import Optional
@@ -18,14 +19,17 @@ class PostMortemData:
 class SystemAudit:
     """Evaluates the execution phase. Closes the loop or demands a reset."""
     def __init__(self, sprint_name: str, audit_data: PostMortemData):
+        """Initialize audit with sprint name and post-mortem data."""
         self.sprint_name = sprint_name
         self.data = audit_data
 
     @property
     def is_loop_closed(self) -> bool:
+        """Check if the feedback loop is closed (trigger neutralized)."""
         return self.data.is_trigger_neutralized
 
     def generate_report(self) -> str:
+        """Generate a formatted audit report for the sprint."""
         report = [
             f"SYSTEM AUDIT: {self.sprint_name}",
             f"Original Trigger: {self.data.original_trigger}",
